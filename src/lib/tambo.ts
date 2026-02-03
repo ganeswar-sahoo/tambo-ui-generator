@@ -21,6 +21,9 @@ import Form from "@/components/ui-generator/Form";
 import Dashboard, {
   dashboardSchema,
 } from "@/components/ui-generator/Dashboard";
+import PageLayout from "@/components/ui-generator/PageLayout";
+import Section from "@/components/ui-generator/Section";
+import StatCard from "@/components/tambo/stat-card";
 
 /**
  * tools
@@ -107,6 +110,30 @@ const formSchema = z.object({
     .optional(),
 });
 
+const pageLayoutSchema = z.object({
+  title: z.string().optional().describe("Main title of the page"),
+  description: z
+    .string()
+    .optional()
+    .describe("Short description shown below the page title"),
+});
+
+const sectionSchema = z.object({
+  title: z.string().optional().describe("Section heading"),
+  description: z
+    .string()
+    .optional()
+    .describe("Optional section description"),
+});
+
+const statCardSchema = z.object({
+  title: z.string().describe("Title of the statistic"),
+  value: z.string().describe("Main value to display"),
+  description: z
+    .string()
+    .optional()
+    .describe("Optional helper text under the value"),
+});
 
 
 /**
@@ -146,6 +173,25 @@ export const components: TamboComponent[] = [
   component: Dashboard,
   propsSchema: dashboardSchema,
 },
+{
+  name: "PageLayout",
+  description: "Main page container with optional title and description",
+  component: PageLayout,
+  propsSchema: pageLayoutSchema,
+},
+{
+  name: "Section",
+  description: "A content section with optional title and description",
+  component: Section,
+  propsSchema: sectionSchema,
+},
+{
+  name: "StatCard",
+  description: "Displays a single metric like users, revenue, or conversion rate",
+  component: StatCard,
+  propsSchema: statCardSchema,
+},
 
 
 ];
+
