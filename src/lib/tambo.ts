@@ -24,6 +24,7 @@ import Dashboard, {
 import PageLayout from "@/components/ui-generator/PageLayout";
 import Section from "@/components/ui-generator/Section";
 import StatCard from "@/components/tambo/stat-card";
+import { Table } from "@/components/tambo/table";
 
 /**
  * tools
@@ -135,6 +136,25 @@ const statCardSchema = z.object({
     .describe("Optional helper text under the value"),
 });
 
+const tableSchema = z.object({
+  title: z.string().optional(),
+  columns: z
+    .array(
+      z.object({
+        label: z.string(),
+      })
+    )
+    .default([]),
+  rows: z
+    .array(
+      z.object({
+        cells: z.array(z.union([z.string(), z.number()])),
+      })
+    )
+    .default([]),
+});
+
+
 
 /**
  * components
@@ -190,6 +210,13 @@ export const components: TamboComponent[] = [
   description: "Displays a single metric like users, revenue, or conversion rate",
   component: StatCard,
   propsSchema: statCardSchema,
+},
+
+{
+  name: "Table",
+  description: "A reusable data table with columns and rows",
+  component: Table,
+  propsSchema: tableSchema,
 },
 
 
